@@ -24,7 +24,6 @@ export class ScenicSpot extends React.Component {
             stop: false,
             render: false,
             data: [],
-            city: 'Taipei'
         };
     }
     api(self) {
@@ -34,22 +33,24 @@ export class ScenicSpot extends React.Component {
         let url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/' + city + '?$top=30&$skip=' + String(self.state.data.length) + '&$format=JSON'
         axios.get(url, {
             headers: getAuthorizationHeader(),
-        }).then(function (response) {
-            let tmp = response.data
+        }).then(function (res) {
+            //console.log(res)
             if (!self.state.data || self.state.data.length == 0) {
-                self.state.data = tmp
+                self.state.data = res.data
             }
             else {
-                for (let i = 0; i < tmp.length; i++) self.state.data.push(tmp[i])
+                for (let i = 0; i < res.data.length; i++) self.state.data.push(res.data[i])
             }
             self.setState({ render: true })
-            if (tmp.length >= 30) {
+            if (res.data.length >= 30) {
                 self.setState({ stop: false })
             }
         });
     }
     render() {
-        if (!this.state.render) this.api(this)
+        if (!this.state.render) {
+            this.api(this)
+        }
         let renderContainer = <div>loading</div>
         if (this.state.render == true) {
             let table = this.state.data.map((datum) => 

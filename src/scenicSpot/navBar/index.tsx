@@ -7,14 +7,10 @@ export class NavBar extends React.Component {
         super();
         this.state = {
             selectedItem: 0,
-            item: [0, 1, 2],
-            url: ['/#/', '/#/scenicSpot', '/#/scenicSpot/Taipei'],
-            title: ['Introduction', 'All Scenic Spot', 'City Scenic Spot']
+            item: [0, 1, 2, 3],
+            url: ['/#/', '/#/scenicSpot', '/#/scenicSpot/Taipei', '/#/rateLimitTest'],
+            title: ['Introduction', 'All Scenic Spot', 'City Scenic Spot', 'Rate Limit Test']
         }
-    }
-    click(idx){
-        this.selectedItem = idx
-        console.log(this.selectedItem)
     }
     render() {
         let dom = this.state.item.map((idx) => 

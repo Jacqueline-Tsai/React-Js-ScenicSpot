@@ -8,9 +8,13 @@ import ScenicSpotCity from './scenicSpot/city'
 import ScenicSpot from './scenicSpot/all'
 import Intro from './scenicSpot/intro'
 import NavBar from './scenicSpot/navBar'
+import RateLimitTest from './view/rateLimitTest'
 
 const Routes = () => (
     <Switch>
+        <Route path="/rateLimitTest">
+            <RateLimitTest />
+        </Route>
         <Route path="/scenicSpot/:city">
             <ScenicSpotCity />
         </Route>

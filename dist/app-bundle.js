@@ -2069,6 +2069,31 @@ ___CSS_LOADER_EXPORT___.push([module.i, ".rsdt-paginate {\n  text-align: center;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/scenicSpot/city/style.css":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/scenicSpot/city/style.css ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default.a);
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, "input {\r\n    margin: center\r\n}", "",{"version":3,"sources":["webpack://./src/scenicSpot/city/style.css"],"names":[],"mappings":"AAAA;IACI;AACJ","sourcesContent":["input {\r\n    margin: center\r\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/scenicSpot/navBar/style.css":
 /*!*******************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/scenicSpot/navBar/style.css ***!
@@ -35247,7 +35272,10 @@ var city_1 = __webpack_require__(/*! ./scenicSpot/city */ "./src/scenicSpot/city
 var all_1 = __webpack_require__(/*! ./scenicSpot/all */ "./src/scenicSpot/all/index.tsx");
 var intro_1 = __webpack_require__(/*! ./scenicSpot/intro */ "./src/scenicSpot/intro/index.tsx");
 var navBar_1 = __webpack_require__(/*! ./scenicSpot/navBar */ "./src/scenicSpot/navBar/index.tsx");
+var rateLimitTest_1 = __webpack_require__(/*! ./view/rateLimitTest */ "./src/view/rateLimitTest.tsx");
 var Routes = function () { return (React.createElement(react_router_dom_1.Switch, null,
+    React.createElement(react_router_dom_1.Route, { path: "/rateLimitTest" },
+        React.createElement(rateLimitTest_1.default, null)),
     React.createElement(react_router_dom_1.Route, { path: "/scenicSpot/:city" },
         React.createElement(city_1.default, null)),
     React.createElement(react_router_dom_1.Route, { path: "/scenicSpot" },
@@ -35329,7 +35357,6 @@ var ScenicSpot = /** @class */ (function (_super) {
             stop: false,
             render: false,
             data: [],
-            city: 'Taipei'
         };
         return _this;
     }
@@ -35341,24 +35368,25 @@ var ScenicSpot = /** @class */ (function (_super) {
         var url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/' + city + '?$top=30&$skip=' + String(self.state.data.length) + '&$format=JSON';
         axios.get(url, {
             headers: getAuthorizationHeader(),
-        }).then(function (response) {
-            var tmp = response.data;
+        }).then(function (res) {
+            //console.log(res)
             if (!self.state.data || self.state.data.length == 0) {
-                self.state.data = tmp;
+                self.state.data = res.data;
             }
             else {
-                for (var i = 0; i < tmp.length; i++)
-                    self.state.data.push(tmp[i]);
+                for (var i = 0; i < res.data.length; i++)
+                    self.state.data.push(res.data[i]);
             }
             self.setState({ render: true });
-            if (tmp.length >= 30) {
+            if (res.data.length >= 30) {
                 self.setState({ stop: false });
             }
         });
     };
     ScenicSpot.prototype.render = function () {
-        if (!this.state.render)
+        if (!this.state.render) {
             this.api(this);
+        }
         var renderContainer = React.createElement("div", null, "loading");
         if (this.state.render == true) {
             var table = this.state.data.map(function (datum) {
@@ -35413,24 +35441,78 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 var all_1 = __webpack_require__(/*! ../all */ "./src/scenicSpot/all/index.tsx");
+__webpack_require__(/*! ./style.css */ "./src/scenicSpot/city/style.css");
 var ScenicSpotCity = /** @class */ (function (_super) {
     __extends(ScenicSpotCity, _super);
     function ScenicSpotCity() {
         var _this = _super.call(this) || this;
+        _this.changeTmp = function (e) {
+            _this.setState({ city: e.target.value });
+        };
+        _this.usePathname = function () {
+            var location = react_router_dom_1.useLocation();
+            return location.pathname;
+        };
+        _this.click = function () {
+            var url = window.location.origin + "/#/scenicSpot/" + _this.state.city;
+            console.log(url);
+            window.open(url, "_self");
+        };
         _this.state = {
-            city: "Taipei",
+            city: "",
+            render: false
         };
         return _this;
     }
     ScenicSpotCity.prototype.render = function () {
-        return (React.createElement(all_1.default, { city: this.state.city }));
+        if (!this.state.render) {
+            this.setState({ city: window.location.href.split('/')[5] });
+            this.setState({ render: true });
+        }
+        return (React.createElement("div", null,
+            React.createElement("form", null,
+                React.createElement("label", null,
+                    "City :",
+                    React.createElement("input", { type: "text", value: this.state.city, onChange: this.changeTmp })),
+                React.createElement("button", { onClick: this.click },
+                    React.createElement("a", null, "submit "))),
+            React.createElement(all_1.default, { city: this.state.city })));
     };
     return ScenicSpotCity;
 }(React.Component));
 exports.ScenicSpotCity = ScenicSpotCity;
 exports.default = ScenicSpotCity;
 
+
+/***/ }),
+
+/***/ "./src/scenicSpot/city/style.css":
+/*!***************************************!*\
+  !*** ./src/scenicSpot/city/style.css ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js!./style.css */ "./node_modules/css-loader/dist/cjs.js!./src/scenicSpot/city/style.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_style_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (_node_modules_css_loader_dist_cjs_js_style_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
@@ -35505,16 +35587,12 @@ var NavBar = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.state = {
             selectedItem: 0,
-            item: [0, 1, 2],
-            url: ['/#/', '/#/scenicSpot', '/#/scenicSpot/Taipei'],
-            title: ['Introduction', 'All Scenic Spot', 'City Scenic Spot']
+            item: [0, 1, 2, 3],
+            url: ['/#/', '/#/scenicSpot', '/#/scenicSpot/Taipei', '/#/rateLimitTest'],
+            title: ['Introduction', 'All Scenic Spot', 'City Scenic Spot', 'Rate Limit Test']
         };
         return _this;
     }
-    NavBar.prototype.click = function (idx) {
-        this.selectedItem = idx;
-        console.log(this.selectedItem);
-    };
     NavBar.prototype.render = function () {
         var _this = this;
         var dom = this.state.item.map(function (idx) {
@@ -35610,6 +35688,62 @@ var ScrollHandler = /** @class */ (function (_super) {
 }(React.Component));
 exports.ScrollHandler = ScrollHandler;
 exports.default = ScrollHandler;
+
+
+/***/ }),
+
+/***/ "./src/view/rateLimitTest.tsx":
+/*!************************************!*\
+  !*** ./src/view/rateLimitTest.tsx ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var RateLimitTest = /** @class */ (function (_super) {
+    __extends(RateLimitTest, _super);
+    function RateLimitTest() {
+        var _this = _super.call(this) || this;
+        _this.state = {
+            res: ""
+        };
+        return _this;
+    }
+    RateLimitTest.prototype.request = function () {
+        axios.get('http://localhost:3000/api/test')
+            .then(function (res) {
+            console.log(res);
+        }).catch(function (err) {
+            console.error(err);
+        });
+    };
+    RateLimitTest.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement("button", { onClick: this.request }, "Request"),
+            React.createElement("h1", null, "Res"),
+            this.state.res));
+    };
+    return RateLimitTest;
+}(React.Component));
+exports.RateLimitTest = RateLimitTest;
+exports.default = RateLimitTest;
 
 
 /***/ })
