@@ -1,0 +1,3 @@
+D:\Desktop\project\reactJs\ReactJs\obj\Debug\ReactJs.njsprojAssemblyReference.cache
+D:\Desktop\project\reactJs\ReactJs\obj\Debug\ReactJs.njsproj.CoreCompileInputs.cache
+D:\Desktop\project\reactJs\ReactJs\bin\Microsoft.NodejsTools.WebRole.dll

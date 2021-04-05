@@ -1,0 +1,36 @@
+{
+  "name": "react-js",
+  "version": "0.0.0",
+  "description": "ReactJs",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "@types/node": "^14.14.37",
+    "axios": "^0.21.1",
+    "express": "~4.17.1",
+    "jssha": "^3.2.0",
+    "path": "~0.12.7",
+    "react": "~16.13.1",
+    "react-dom": "~16.13.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-smart-data-table": "^0.10.1",
+    "react-table-scrollbar": "^0.1.9",
+    "style-loader": "^2.0.0",
+    "ts-loader": "~7.0.1",
+    "typescript": "~3.8.3",
+    "webpack": "~4.42.1",
+    "webpack-cli": "~3.3.11"
+  },
+  "scripts": {
+    "build": "webpack-cli ./src/app.tsx --config webpack-config.js",
+    "start": "webpack-dev-server --mode development"
+  },
+  "devDependencies": {
+    "css-loader": "^5.2.0",
+    "typings-for-css-modules-loader": "^1.7.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
