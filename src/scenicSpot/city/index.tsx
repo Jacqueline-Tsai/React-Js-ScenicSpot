@@ -23,7 +23,7 @@ export class ScenicSpotCity extends React.Component {
     click = () => {
         let url = window.location.origin + "/#/scenicSpot/" + this.state.city
         console.log(url)
-        window.open(url, "_blank");
+        window.open(url, "_self");
     }
     render() {
         if(!this.state.render) {
@@ -39,7 +39,7 @@ export class ScenicSpotCity extends React.Component {
                     </label>
                     <button onClick={this.click}><a>submit </a></button> 
                 </form>
-                <ScenicSpot city={this.state.city}></ScenicSpot>
+                <ScenicSpot></ScenicSpot>
             </div>
             )
     }

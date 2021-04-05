@@ -16,6 +16,12 @@ github link : https://github.com/Jacqueline-Tsai/React-Js-ScenicSpot
 
 ## Get Start
 
+安裝套件
+
+```sh
+npm install
+```
+
 啟動 server (port:3000)
 
 ```sh

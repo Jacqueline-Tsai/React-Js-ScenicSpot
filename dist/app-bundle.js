@@ -35364,12 +35364,14 @@ var ScenicSpot = /** @class */ (function (_super) {
         if (self.state.stop == true)
             return;
         self.setState({ stop: true });
-        var city = self.props.city ? String(self.props.city) : "";
-        var url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/' + city + '?$top=30&$skip=' + String(self.state.data.length) + '&$format=JSON';
+        var city = window.location.href.split('/')[5];
+        if (!city)
+            city = "";
+        var url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/' + city + '?$top=5&$skip=' + String(self.state.data.length) + '&$format=JSON';
         axios.get(url, {
             headers: getAuthorizationHeader(),
         }).then(function (res) {
-            //console.log(res)
+            console.log(res);
             if (!self.state.data || self.state.data.length == 0) {
                 self.state.data = res.data;
             }
@@ -35378,7 +35380,7 @@ var ScenicSpot = /** @class */ (function (_super) {
                     self.state.data.push(res.data[i]);
             }
             self.setState({ render: true });
-            if (res.data.length >= 30) {
+            if (res.data.length >= 5) {
                 self.setState({ stop: false });
             }
         });
@@ -35458,7 +35460,7 @@ var ScenicSpotCity = /** @class */ (function (_super) {
         _this.click = function () {
             var url = window.location.origin + "/#/scenicSpot/" + _this.state.city;
             console.log(url);
-            window.open(url, "_blank");
+            window.open(url, "_self");
         };
         _this.state = {
             city: "",
@@ -35478,7 +35480,7 @@ var ScenicSpotCity = /** @class */ (function (_super) {
                     React.createElement("input", { type: "text", value: this.state.city, onChange: this.changeTmp })),
                 React.createElement("button", { onClick: this.click },
                     React.createElement("a", null, "submit "))),
-            React.createElement(all_1.default, { city: this.state.city })));
+            React.createElement(all_1.default, null)));
     };
     return ScenicSpotCity;
 }(React.Component));

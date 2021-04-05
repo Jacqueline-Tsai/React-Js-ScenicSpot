@@ -27,14 +27,15 @@ export class ScenicSpot extends React.Component {
         };
     }
     api(self) {
+        
         if (self.state.stop == true) return
         self.setState({ stop: true })
-        let city = self.props.city ? String(self.props.city) : ""
-        let url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/' + city + '?$top=30&$skip=' + String(self.state.data.length) + '&$format=JSON'
+        let city = window.location.href.split('/')[5]
+        if(!city)city = ""
+        let url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/' + city + '?$top=5&$skip=' + String(self.state.data.length) + '&$format=JSON'
         axios.get(url, {
             headers: getAuthorizationHeader(),
         }).then(function (res) {
-            //console.log(res)
             if (!self.state.data || self.state.data.length == 0) {
                 self.state.data = res.data
             }
@@ -42,7 +43,7 @@ export class ScenicSpot extends React.Component {
                 for (let i = 0; i < res.data.length; i++) self.state.data.push(res.data[i])
             }
             self.setState({ render: true })
-            if (res.data.length >= 30) {
+            if (res.data.length >= 5) {
                 self.setState({ stop: false })
             }
         });
