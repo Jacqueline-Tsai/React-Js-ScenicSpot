@@ -32,27 +32,38 @@ export class ScenicSpot extends React.Component {
         self.setState({ stop: true })
         let city = self.props.city ? String(self.props.city) : ""
         let url = 'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/' + city + '?$top=30&$skip=' + String(self.state.data.length) + '&$format=JSON'
-        console.log(url)
         axios.get(url, {
             headers: getAuthorizationHeader(),
         }).then(function (response) {
             let tmp = response.data
-            if (!self.state.data || self.state.data.length == 0) self.state.data = tmp
+            if (!self.state.data || self.state.data.length == 0) {
+                self.state.data = tmp
+            }
             else {
                 for (let i = 0; i < tmp.length; i++) self.state.data.push(tmp[i])
             }
             self.setState({ render: true })
-            if (tmp.length >= 30) self.setState({ stop: false })
+            if (tmp.length >= 30) {
+                self.setState({ stop: false })
+            }
         });
     }
     render() {
         if (!this.state.render) this.api(this)
         let renderContainer = <div>loading</div>
         if (this.state.render == true) {
-            let table = this.state.data.map((datum) => <tr><td>{datum.Name}</td><td>{datum.Description}</td><td>{datum.Address}</td><td>{datum.OpenTime}</td></tr>)
+            let table = this.state.data.map((datum) => 
+            <tr><td>{datum.Name}</td>
+            <td>{datum.Description}</td>
+            <td>{datum.Address}</td>
+            <td>{datum.OpenTime}</td></tr>)
             renderContainer =
                 <div>
-                    <ScrollHandler height={window.innerHeight} onScrollBottom={this.api} parent={this} content={
+                    <ScrollHandler 
+                    height={window.innerHeight} 
+                    onScrollBottom={this.api} 
+                    parent={this} 
+                    content={
                         <table className="w3-table-all w3-hoverable" >
                             <thead>
                                 <tr>
@@ -65,7 +76,8 @@ export class ScenicSpot extends React.Component {
                             <tbody >
                                 {table}
                             </tbody>
-                        </table>}>
+                        </table>
+                    }>
                     </ScrollHandler>
                 </div>
         }

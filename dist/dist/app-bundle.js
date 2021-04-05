@@ -35505,9 +35505,9 @@ var NavBar = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.state = {
             selectedItem: 0,
-            item: [0, 1, 2],
-            url: ['/#/', '/#/scenicSpot', '/#/scenicSpot/Taipei'],
-            title: ['Introduction', 'All Scenic Spot', 'City Scenic Spot']
+            item: [0, 1],
+            url: ['/#/scenicSpot', '/#/scenicSpot/Taipei'],
+            title: ['All', 'City']
         };
         return _this;
     }
@@ -35518,8 +35518,14 @@ var NavBar = /** @class */ (function (_super) {
     NavBar.prototype.render = function () {
         var _this = this;
         var dom = this.state.item.map(function (idx) {
-            return React.createElement("li", null,
-                React.createElement("a", { href: _this.state.url[idx] }, _this.state.title[idx]));
+            if (idx == _this.state.selectedItem) {
+                return React.createElement("li", null,
+                    React.createElement("a", { onclick: _this.click(idx), className: "active", href: _this.state.url[idx] }, _this.state.title[idx]));
+            }
+            else {
+                return React.createElement("li", null,
+                    React.createElement("a", { onclick: _this.click(idx), href: _this.state.url[idx] }, _this.state.title[idx]));
+            }
         });
         return (React.createElement("ul", null, dom));
     };
