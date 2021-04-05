@@ -35458,7 +35458,7 @@ var ScenicSpotCity = /** @class */ (function (_super) {
         _this.click = function () {
             var url = window.location.origin + "/#/scenicSpot/" + _this.state.city;
             console.log(url);
-            window.open(url, "_self");
+            window.open(url, "_blank");
         };
         _this.state = {
             city: "",

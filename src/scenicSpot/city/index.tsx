@@ -23,7 +23,7 @@ export class ScenicSpotCity extends React.Component {
     click = () => {
         let url = window.location.origin + "/#/scenicSpot/" + this.state.city
         console.log(url)
-        window.open(url, "_self");
+        window.open(url, "_blank");
     }
     render() {
         if(!this.state.render) {
