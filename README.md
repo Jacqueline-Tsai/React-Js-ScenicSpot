@@ -3,7 +3,7 @@ github link : https://github.com/Jacqueline-Tsai/React-Js-ScenicSpot
 
 # Introduction
 
-這個專案包含了兩個作業
+這個專案包含了兩個部分
 1. 
 	串接交通部觀光景點 API (MOTC Transport API V2),並使用 React 實作一個瀏覽景點的網站
 2.
