@@ -1,11 +1,12 @@
+scenic-spots-lookup-tool
 
 # Introduction
 
 This project includes two parts
-1. 
-	Connect scene spots API from Ministry of Transportation And Communications (MOTC Transport API V2), implementing a interface for these data using React.
-2.
-	Designed a middleware that limit the number of requests from a single IP to 1000. If the user is exceed the limit, return 429 (Too Many Requests)
+
+1. Connect scene spots API from Ministry of Transportation And Communications (MOTC Transport API V2), implementing a interface for these data using React.
+
+3. Designed a middleware that limit the number of requests from a single IP to 1000. If the user is exceed the limit, return 429 (Too Many Requests)
  
 ## Get Start
 
