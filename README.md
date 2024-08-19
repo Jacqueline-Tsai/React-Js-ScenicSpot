@@ -1,6 +1,6 @@
-scenic-spots-lookup-tool
+# Scenic Spots Lookup Tool
 
-# Introduction
+## Introduction
 
 This project includes two parts
 
